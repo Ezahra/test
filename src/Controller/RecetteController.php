@@ -22,7 +22,7 @@ class RecetteController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'recette_new', methods: ['GET', 'POST'])]
+    #[Route('/user/new', name: 'recette_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $recette = new Recette();
@@ -30,6 +30,7 @@ class RecetteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $recette->setAuteur($this->getUser());
             $entityManager->persist($recette);
             $entityManager->flush();
 
@@ -50,7 +51,7 @@ class RecetteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'recette_edit', methods: ['GET', 'POST'])]
+    #[Route('/user/{id}/edit', name: 'recette_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Recette $recette, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(RecetteType::class, $recette);

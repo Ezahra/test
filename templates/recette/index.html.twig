@@ -11,6 +11,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Auteur</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -19,7 +20,8 @@
             <tr>
                 <td>{{ recette.id }}</td>
                 <td>{{ recette.name }}</td>
-                <td>{{ recette.description }}</td>
+                <td>{{ recette.description | slice(0,50) ~ "..." }}</td>
+                <td>{{ recette.auteur.username }}</td>
                 <td>
                     <a href="{{ path('recette_show', {'id': recette.id}) }}">show</a>
                     <a href="{{ path('recette_edit', {'id': recette.id}) }}">edit</a>
